@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JARVIS AI Studio</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#080b16;color:#f5f5ff;
+ font-family:Arial,sans-serif;padding:20px;
+}
+header{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:25px;font-weight:bold;letter-spacing:2px}
+.status{color:#55e6a5;font-size:12px}
+h1{font-size:27px;margin-top:35px}
+.sub{color:#9299b4;font-size:14px}
+.panel{
+ background:#11172a;border:1px solid #252d48;
+ border-radius:17px;padding:16px;margin-top:20px;
+}
+textarea{
+ width:100%;height:115px;background:#0b1020;
+ color:white;border:1px solid #303958;border-radius:12px;
+ padding:13px;font-size:15px;resize:vertical;
+}
+button{
+ border:0;border-radius:10px;padding:13px 16px;
+ color:white;background:#6548e8;font-weight:bold;
+ cursor:pointer;
+}
+button:active{opacity:.8}
+.upload{background:#202943;margin-top:12px}
+.generate{width:100%;margin-top:14px;
+ background:linear-gradient(90deg,#6548e8,#287bdc)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}
+.tile{
+ background:#151c31;border:1px solid #29334f;
+ padding:17px 10px;border-radius:13px;
+ text-align:center;font-size:14px;
+}
+.tile span{display:block;font-size:25px;margin-bottom:9px}
+h2{font-size:19px;margin-top:28px}
+#preview{max-width:100%;border-radius:12px;margin-top:12px;display:none}
+#message{color:#aeb8d8;font-size:13px;line-height:1.5}
+nav{
+ position:fixed;bottom:0;left:0;right:0;
+ background:#101629;border-top:1px solid #29334f;
+ display:flex;justify-content:space-around;padding:14px 4px;
+ font-size:12px;color:#aeb8d8;
+}
+nav a{color:inherit;text-decoration:none}
+main{padding-bottom:85px}
+</style>
+</head>
+<body>
+<main>
+<header>
+ <div class="logo">✦ JARVIS</div>
+ <div class="status">● AI STUDIO</div>
+</header>
+
+<h1>What will you create today?</h1>
+<p class="sub">Your personal AI creation studio.</p>
+
+<section class="panel">
+ <h2 style="margin-top:0">Create with AI</h2>
+ <textarea id="prompt" placeholder="Describe what you want to create..."></textarea>
+
+ <button class="upload" onclick="document.getElementById('file').click()">
+ ＋ Upload Image
+ </button>
+ <input id="file" type="file" accept="image/*" hidden>
+
+ <img id="preview" alt="Uploaded image preview">
+
+ <button class="generate" onclick="generate()">
+ ✦ Generate
+ </button>
+ <p id="message">Choose a creation mode below to get started.</p>
+</section>
+
+<h2>Creation Studio</h2>
+<div class="grid">
+ <div class="tile" onclick="setMode('Text to Image')">
+ <span>🎨</span>Text to Image
+ </div>
+ <div class="tile" onclick="setMode('Text to Video')">
+ <span>🎬</span>Text to Video
+ </div>
+ <div class="tile" onclick="setMode('Image to Video')">
+ <span>🖼️</span>Image to Video
+ </div>
+ <div class="tile" onclick="setMode('AI Audio')">
+ <span>🎧</span>AI Audio
+ </div>
+</div>
+
+<h2>My Creations</h2>
+<div class="panel">
+ <p class="sub">Your generated creations will appear here.</p>
+</div>
+</main>
+
+<nav>
+ <a href="#">⌂ Home</a>
+ <a href="#prompt">✦ Create</a>
+ <a href="#">▣ History</a>
+ <a href="#">⚙ Settings</a>
+</nav>
+
+<script>
+let mode="Text to Image";
+
+function setMode(value){
+ mode=value;
+ document.getElementById("message").textContent=
+ "Selected mode: "+mode;
+}
+
+document.getElementById("file").addEventListener("change",function(){
+ const file=this.files[0];
+ if(file){
+  document.getElementById("preview").src=
+  URL.createObjectURL(file);
+  document.getElementById("preview").style.display="block";
+ }
+});
+
+function generate(){
+ const prompt=document.getElementById("prompt").value.trim();
+ const message=document.getElementById("message");
+ if(!prompt){
+  message.textContent="Please enter a description first.";
+  return;
+ }
+ message.textContent=
+ "Your "+mode+" request is ready. The AI generation engine will be connected in the next development step.";
+}
+</script>
+</body>
+</html>
